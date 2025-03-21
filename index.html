@@ -13,7 +13,7 @@
             font-family: 'Poppins', sans-serif;
         }
         body {
-            background: black;
+            background: wheat;
             color: white;
             display: flex;
             justify-content: center;
@@ -32,7 +32,7 @@
         .box {
             width: 350px;
             height: 400px;
-            background: rgba(255, 255, 255, 0.1);
+            background: white;
             backdrop-filter: blur(10px);
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -40,15 +40,17 @@
             overflow: hidden;
             transition: 0.4s;
             opacity: 0;
-            transform: translateX(-100px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .box:nth-child(even) {
-            transform: translateX(100px);
+            transform: translateY(50px);
+            border: 1px solid black;
         }
         .box.show {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateY(0);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.5);
         }
         .box img {
             width: 100%;
@@ -60,6 +62,7 @@
             font-size: 18px;
             font-weight: bold;
             margin: 8px 0;
+            color: black;
         }
         .insta-container {
             display: flex;
@@ -101,10 +104,10 @@
 </head>
 <body>
     <div class="main" id="container"></div>
-
-    <script> 
-       let path = [
-           "https://i.pinimg.com/736x/d4/ad/9e/d4ad9e8f0787bb775efd92a77c805248.jpg",
+</body>
+<script>
+    let path = [
+       "https://i.pinimg.com/736x/d4/ad/9e/d4ad9e8f0787bb775efd92a77c805248.jpg",
        "https://i.pinimg.com/474x/a9/2c/b6/a92cb6d1be8f5c31c479c72cae1a0380.jpg",
        "https://i.pinimg.com/474x/48/fc/ec/48fcecff25a17e5393e9f6fee662beb0.jpg",
        "https://i.pinimg.com/474x/03/95/e5/0395e5828220e4e8b9e7048778bab5a6.jpg",
@@ -124,63 +127,61 @@
        "https://i.pinimg.com/236x/27/80/52/27805224d4942bc6ded4a2f25605b884.jpg",
        "https://i.pinimg.com/474x/b5/02/c7/b502c702ed52e467e4e73f7fd57c3964.jpg",
        "https://i.pinimg.com/236x/85/67/20/85672088758916906809b0c69fe5a8a5.jpg"
-       ];
-
-       let names = [
+        
+    ];
+    let names = [
    "Lily 🌸", "Ella 🍭", "Daisy 🌼", "Rosie 🌹", "Chloe 🦋", 
    "Luna 🌙", "Zoey 🎀", "Mila 💖", "Nina 🧸", "Ruby 💎",
    "Bella 💕", "Sophie 🌟", "Emma 🌷", "Isla 🦄", "Grace 🌿",
    "Aria 🎶", "Hazel 🍃", "Aurora 🌈", "Violet 💜", "Olivia 🦢"
 ];
-       let instaIds = names.map(name => name.toLowerCase().replace(/[^a-z]/g, "") + "_cute");
-       let instaLogo = "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png";
+    let instaIds = names.map(name => name.toLowerCase().replace(/[^a-z]/g, "") + "_cute");
+    let instaLogo = "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png";
+    
+    for(let i = 0; i < path.length; i++) {
+        let container = document.getElementById("container");
+        let main = document.createElement("div");
+        main.setAttribute("class", "box");
 
-       for(let i = 0; i < path.length; i++) {
-           let container = document.getElementById("container");
-           let main = document.createElement("div");
-           main.setAttribute("class", "box");
+        let image = document.createElement("img");
+        image.setAttribute("src", path[i]);
 
-           let image = document.createElement("img");
-           image.setAttribute("src", path[i]);
+        let name = document.createElement("p");
+        name.innerText = names[i];
 
-           let name = document.createElement("p");
-           name.innerText = names[i];
+        let instaContainer = document.createElement("div");
+        instaContainer.setAttribute("class", "insta-container");
 
-           let instaContainer = document.createElement("div");
-           instaContainer.setAttribute("class", "insta-container");
+        let instaImg = document.createElement("img");
+        instaImg.setAttribute("src", instaLogo);
 
-           let instaImg = document.createElement("img");
-           instaImg.setAttribute("src", instaLogo);
+        let instaLink = document.createElement("a");
+        instaLink.setAttribute("href", "https://www.instagram.com/" + instaIds[i]);
+        instaLink.setAttribute("target", "_blank");
+        instaLink.innerText = "@" + instaIds[i];
 
-           let instaLink = document.createElement("a");
-           instaLink.setAttribute("href", "https://www.instagram.com/" + instaIds[i]);
-           instaLink.setAttribute("target", "_blank");
-           instaLink.innerText = "@" + instaIds[i];
+        instaContainer.append(instaImg, instaLink);
 
-           instaContainer.append(instaImg, instaLink);
+        let followBtn = document.createElement("button");
+        followBtn.setAttribute("class", "follow-btn");
+        followBtn.innerText = "Follow";
 
-           let followBtn = document.createElement("button");
-           followBtn.setAttribute("class", "follow-btn");
-           followBtn.innerText = "Follow";
+        main.append(image, name, instaContainer, followBtn);
+        container.append(main);
+    }
 
-           main.append(image, name, instaContainer, followBtn);
-           container.append(main);
-       }
+    function revealOnScroll() {
+        let boxes = document.querySelectorAll(".box");
+        boxes.forEach(box => {
+            let boxTop = box.getBoundingClientRect().top;
+            let windowHeight = window.innerHeight;
+            if (boxTop < windowHeight - 50) {
+                box.classList.add("show");
+            }
+        });
+    }
 
-       function handleScroll() {
-           let boxes = document.querySelectorAll('.box');
-           let triggerBottom = window.innerHeight * 0.85;
-
-           boxes.forEach(box => {
-               let boxTop = box.getBoundingClientRect().top;
-               if (boxTop < triggerBottom) {
-                   box.classList.add('show');
-               }
-           });
-       }
-
-       window.addEventListener('scroll', handleScroll);
-       handleScroll();
-    </script>
-</body>
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+</script>
 </html>
