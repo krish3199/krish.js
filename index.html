@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Project</title>
+   <link rel="icon" href="https://wallpapercave.com/wp/wp9023960.jpg">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+    .main {
+        width: 100%;
+        height: auto;
+        padding-block: 25px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    .box {
+        width: 350px;
+        height: 300px;
+        border: 1px solid white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 5px;
+    }
+    .box img {
+        width: 100%;
+        height: 80%;
+        object-fit: cover;
+    }
+    .box p {
+        margin-top: 5px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+</style>
+<body>
+    <div class="main" id="container"></div>
+</body>
+<script> 
+   let path = [
+       "https://i.pinimg.com/736x/d4/ad/9e/d4ad9e8f0787bb775efd92a77c805248.jpg",
+       "https://i.pinimg.com/474x/a9/2c/b6/a92cb6d1be8f5c31c479c72cae1a0380.jpg",
+       "https://i.pinimg.com/474x/48/fc/ec/48fcecff25a17e5393e9f6fee662beb0.jpg",
+       "https://i.pinimg.com/474x/03/95/e5/0395e5828220e4e8b9e7048778bab5a6.jpg",
+       "https://i.pinimg.com/474x/c7/1d/2c/c71d2cd42550c749d0a4e7d3ee83de6e.jpg",
+       "https://i.pinimg.com/236x/19/42/23/194223337820776a1a98e2c19fb4b075.jpg",
+       "https://i.pinimg.com/474x/68/37/c2/6837c2792d1d5d0384f81360bf53784f.jpg",
+       "https://i.pinimg.com/474x/b1/9b/a2/b19ba20984c1d773ec1e3b4df8b41e66.jpg",
+       "https://i.pinimg.com/236x/57/ff/22/57ff2276c16f024fa899b82cef9dace4.jpg",
+       "https://i.pinimg.com/236x/32/3d/00/323d0080ad75b81098215db404a5232f.jpg",
+       "https://i.pinimg.com/236x/8c/b7/40/8cb74082eeea86784729a704d130f876.jpg",
+       "https://i.pinimg.com/474x/99/ca/e3/99cae3a1249e92ea0985540f5b14b5d9.jpg",
+       "https://i.pinimg.com/474x/dc/bd/ad/dcbdadbd50580d35c1c53c860e05984f.jpg",
+       "https://i.pinimg.com/236x/51/8a/dd/518add7435d3ee84b7e0b3772ac80e6b.jpg",
+       "https://i.pinimg.com/236x/ab/57/17/ab57175c6f29357a8f8c20eb53c7a671.jpg",
+       "https://i.pinimg.com/474x/88/b5/6d/88b56d0c37f571485ce2f74714b1c552.jpg",
+       "https://i.pinimg.com/474x/ed/ed/9c/eded9c87d0ccf6af2f889d81b6b2418d.jpg",
+       "https://i.pinimg.com/236x/27/80/52/27805224d4942bc6ded4a2f25605b884.jpg",
+       "https://i.pinimg.com/474x/b5/02/c7/b502c702ed52e467e4e73f7fd57c3964.jpg",
+       "https://i.pinimg.com/236x/85/67/20/85672088758916906809b0c69fe5a8a5.jpg"
+   ];
+
+   let names = [
+       "Sophia", "Emma", "Olivia", "Ava", "Isabella",
+       "Mia", "Amelia", "Harper", "Evelyn", "Abigail",
+       "Ella", "Scarlett", "Grace", "Lily", "Aria",
+       "Chloe", "Zoe", "Stella", "Hannah", "Madison"
+   ];
+
+   for(let i = 0; i < path.length; i++) {
+       let container = document.getElementById("container");
+       
+       let main = document.createElement("div");
+       main.setAttribute("class", "box");
+       
+       let image = document.createElement("img");
+       image.setAttribute("src", path[i]);
+       
+       let name = document.createElement("p");
+       name.innerText = names[i];
+       
+       main.append(image, name);
+       container.append(main);
+   }
+</script>
+</html>
